@@ -4,6 +4,11 @@ import Input from './input';
 import { required, nonEmpty, maxNumbers } from  '../validators';
 
 export class ContactForm extends React.Component {
+
+  onSubmit = (values) => {
+    console.log(values);
+  }
+
   render() {
     return (
       <div className="contact-wrapper">
@@ -11,7 +16,9 @@ export class ContactForm extends React.Component {
           <h1>Report a problem with your delivery</h1>
         </header>
         <main>
-          <form>
+          <form
+          onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
+          >
             <Field
               name="tracking number"
               label="Tracking Number"
