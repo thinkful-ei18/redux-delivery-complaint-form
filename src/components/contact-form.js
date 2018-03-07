@@ -1,6 +1,6 @@
 import React from 'react';
-import './contact.css'
 import { reduxForm, Field } from 'redux-form';
+import Input from './input';
 
 export class ContactForm extends React.Component {
   render() {
@@ -15,17 +15,17 @@ export class ContactForm extends React.Component {
               name="tracking number"
               label="Tracking Number"
               type="text"
-              component="input"
+              component={Input}
             />
-            <label> What is your issue?
-              <select name="issue">
+            <Field
+              name="issue"
+              component="select">
               <option value="missing">My delivery hasn't arrived</option>
               <option value="wrong item">The wrong item was delivered</option>
               <option value="incomplete">Part of my order was missing</option>
               <option value="damaged">Some of my order arrived damaged</option>
               <option value="other">Other (give more details below)</option>
-              </select>
-            </label>
+              </Field>
             <label htmlFor=""> Give more details (optional)
               <textarea name="details" id="details" cols="30" rows="5"></textarea>
             </label>
