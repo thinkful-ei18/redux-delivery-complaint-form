@@ -17,6 +17,7 @@ export class ContactForm extends React.Component {
               type="text"
               component={Input}
             />
+            <label>What is your issue?</label>
             <Field
               name="issue"
               component="select">
@@ -25,10 +26,14 @@ export class ContactForm extends React.Component {
               <option value="incomplete">Part of my order was missing</option>
               <option value="damaged">Some of my order arrived damaged</option>
               <option value="other">Other (give more details below)</option>
-              </Field>
-            <label htmlFor=""> Give more details (optional)
-              <textarea name="details" id="details" cols="30" rows="5"></textarea>
-            </label>
+            </Field>
+            <Field
+              name="details"
+              label="Give more details (optional)"
+              type="text"
+              cols="30" rows="5"
+              component={Input}
+            />
             <button type="submit">Submit</button>
           </form>
         </main>
