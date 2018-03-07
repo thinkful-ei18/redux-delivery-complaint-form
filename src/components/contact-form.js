@@ -1,6 +1,7 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import Input from './input';
+import { required, nonEmpty, maxNumbers } from  '../validators';
 
 export class ContactForm extends React.Component {
   render() {
@@ -16,17 +17,20 @@ export class ContactForm extends React.Component {
               label="Tracking Number"
               type="text"
               component={Input}
+              validate={[required, nonEmpty, maxNumbers]}
             />
 
             <Field
               name="issue"
               label="What is your issue?"
               component={Input}
-              element="select">
+              element="select"
+              validate={[required, nonEmpty]}
+              >
               <option value=""></option>
-              <option value="missing">My delivery hasn't arrived</option>
-              <option value="wrong item">The wrong item was delivered</option>
-              <option value="incomplete">Part of my order was missing</option>
+              <option value="not-delivered">My delivery hasn't arrived</option>
+              <option value="wrong-item">The wrong item was delivered</option>
+              <option value="missing-part">Part of my order was missing</option>
               <option value="damaged">Some of my order arrived damaged</option>
               <option value="other">Other (give more details below)</option>
             </Field>
