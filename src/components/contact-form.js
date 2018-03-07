@@ -5,8 +5,16 @@ import { required, nonEmpty, maxNumbers } from  '../validators';
 
 export class ContactForm extends React.Component {
 
-  onSubmit = (values) => {
-    console.log(values);
+  onSubmit(values) {
+    console.log(JSON.stringify(values));
+    return fetch('https://us-central1-delivery-form-api.cloudfunctions.net/api/report', {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(() => console.log('Submitted form with:', values));
   }
 
   render() {
@@ -20,7 +28,7 @@ export class ContactForm extends React.Component {
           onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
           >
             <Field
-              name="tracking number"
+              name="trackingNumber"
               label="Tracking Number"
               type="text"
               component={Input}
