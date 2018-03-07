@@ -17,10 +17,13 @@ export class ContactForm extends React.Component {
               type="text"
               component={Input}
             />
-            <label>What is your issue?</label>
+
             <Field
               name="issue"
-              component="select">
+              label="What is your issue?"
+              component={Input}
+              element="select">
+              <option value=""></option>
               <option value="missing">My delivery hasn't arrived</option>
               <option value="wrong item">The wrong item was delivered</option>
               <option value="incomplete">Part of my order was missing</option>
