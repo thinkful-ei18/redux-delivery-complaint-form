@@ -6,7 +6,7 @@ import { required, nonEmpty, maxNumbers } from  '../validators';
 export class ContactForm extends React.Component {
 
   onSubmit(values) {
-    console.log(JSON.stringify(values));
+    console.log('STRINGIFIED VALUES:',JSON.stringify(values));
     return fetch('https://us-central1-delivery-form-api.cloudfunctions.net/api/report', {
       method: 'POST',
       body: JSON.stringify(values),
