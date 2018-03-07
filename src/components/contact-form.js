@@ -1,5 +1,5 @@
 import React from 'react';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, SubmissionError } from 'redux-form';
 import Input from './input';
 import { required, nonEmpty, maxNumbers } from  '../validators';
 
@@ -14,14 +14,66 @@ export class ContactForm extends React.Component {
         'Content-Type': 'application/json'
       }
     })
-    .then(() => console.log('Submitted form with:', values));
+    .then(res => {
+      if (!res.ok) {
+        if (
+          res.headers.has('content-type') &&
+          res.headers
+            .get('content-type')
+            .startsWith('application/json')
+        ) {
+          return res.json().then(err => Promise.reject(err));
+        }
+        return Promise.reject({
+          code: res.status,
+          message: res.statusText
+      });
+      }
+      return;
+    })
+    .then(() => console.log('Submitted form with:', values))
+    .catch(err => {
+      const {reason, message, location} = err;
+      if (reason === 'ValidationError') {
+          // Convert ValidationErrors into SubmissionErrors for Redux Form
+      return Promise.reject(
+          new SubmissionError({
+              [location]: message
+          })
+        );
+      }
+      return Promise.reject(
+          new SubmissionError({
+              _error: 'Error submitting message'
+          })
+      );
+    });
   }
 
   render() {
+
+    let successMessage;
+        if (this.props.submitSucceeded) {
+            successMessage = (
+                <div className="message message-success">
+                    Message submitted successfully
+                </div>
+            );
+        }
+
+        let errorMessage;
+        if (this.props.error) {
+            errorMessage = (
+                <div className="message message-error">{this.props.error}</div>
+            );
+        }
+
     return (
       <div className="contact-wrapper">
         <header>
           <h1>Report a problem with your delivery</h1>
+          {successMessage}
+          {errorMessage}
         </header>
         <main>
           <form
