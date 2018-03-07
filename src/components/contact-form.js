@@ -1,4 +1,5 @@
 import React from 'react';
+import './contact-form.css';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 import Input from './input';
 import { required, nonEmpty, maxNumbers } from  '../validators';
